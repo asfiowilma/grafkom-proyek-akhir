@@ -166,27 +166,188 @@
     <script type="text/javascript" src="js/duck.js"></script>
     <script type="text/javascript" src="js/hirarki.js"></script>
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/w3.css">
-    <link rel="stylesheet" href="css/ws2.css">
+    <link href="/css/output.css" rel="stylesheet">
 
     <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-
 </head>
 
 <body onload="webGLStart();" class="w3-black">
+    <div class="bg-pink-50 grid place-items-center min-h-screen w-full">
+        <div class="flex flex-col gap-2">
+            <div class="bg-white rounded-xl shadow-lg p-6 flex gap-6 flex-wrap">
+                <canvas id="canvas" width="720" height="512" class="rounded-xl">
+                    Please use a browser that supports "canvas"
+                </canvas>
+                <div class="flex flex-col w-[33rem]">
+                    <div class="font-extrabold text-4xl text-pink-900 mb-4">Final Project</div>
+                    <div class="tabs mb-4">
+                        <a for="general" class="tab tab-lifted tab-active">general controls</a>
+                        <a for="duck" class="tab tab-lifted">duck</a>
+                        <a for="dog" class="tab tab-lifted">dog</a>
+                    </div>
+                    <div id="tab-general" class="grid grid-cols-2 gap-4">
+                        <div class="flex flex-col gap-4">
+                            <div>
+                                <div class="uppercase mb-2 text-gray-500 text-sm tracking-wider">toggle
+                                    controls
+                                </div>
+                                <div class="flex flex-col text-pink-800 text-sm">
+                                    <label class="cursor-pointer label pb-0.5">
+                                        <span class="label-text">use animation</span>
+                                        <input type="checkbox" id="animation" checked class="checkbox" />
+                                    </label>
+                                    <label class="cursor-pointer label py-0.5">
+                                        <span class="label-text">use lighting</span>
+                                        <input type="checkbox" id="lighting" checked class="checkbox" />
+                                    </label>
+                                    <label class="cursor-pointer label py-0.5">
+                                        <span class="label-text">use texture</span>
+                                        <input type="checkbox" id="texture" checked class="checkbox" />
+                                    </label>
+                                    <label class="cursor-pointer label pt-0.5">
+                                        <span class="label-text">use wireframe view</span>
+                                        <input type="checkbox" id="wireframe" checked class="checkbox" />
+                                    </label>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="uppercase mb-2 text-gray-500 text-sm tracking-wider">point light
+                                    controls</div>
+                                <div class="flex flex-col gap-2 text-pink-800 text-sm">
+                                    <div class="grid grid-cols-3 gap-2">
+                                        <label class="input-group input-group-xs">
+                                            <span>R</span>
+                                            <input type="text" id="pointR" value="0.5"
+                                                class="w-full input input-bordered input-xs" />
+                                        </label>
+                                        <label class="input-group input-group-xs">
+                                            <span>G</span>
+                                            <input type="text" id="pointG" value="0.5"
+                                                class="w-full input input-bordered input-xs" />
+                                        </label>
+                                        <label class="input-group input-group-xs">
+                                            <span>B</span>
+                                            <input type="text" id="pointB" value="0.5"
+                                                class="w-full input input-bordered input-xs" />
+                                        </label>
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <div class="pr-2">x</div><input id="lightPositionX" type="range" min="-100"
+                                            max="100" value="0" class="range range-sm range-accent" />
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <div class="pr-2">y</div><input id="lightPositionY" type="range" min="-50"
+                                            max="50" value="0" class="range range-sm range-accent" />
+                                    </div>
+                                    <div class="flex gap-2">
+                                        <div class="pr-2">z</div><input id="lightPositionZ" type="range" min="-300"
+                                            max="-100" value="-200" class="range range-sm range-accent" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="uppercase mb-2 text-gray-500 text-sm tracking-wider">ambient light
+                                    controls</div>
+                                <div class="flex flex-col gap-2 text-pink-800 text-sm">
+                                    <div class="grid grid-cols-3 gap-2">
+                                        <label class="input-group input-group-xs">
+                                            <span>R</span>
+                                            <input type="text" id="ambientR" value="0.2"
+                                                class="w-full input input-bordered input-xs" />
+                                        </label>
+                                        <label class="input-group input-group-xs">
+                                            <span>G</span>
+                                            <input type="text" id="ambientG" value="0.2"
+                                                class="w-full input input-bordered input-xs" />
+                                        </label>
+                                        <label class="input-group input-group-xs">
+                                            <span>B</span>
+                                            <input type="text" id="ambientB" value="0.2"
+                                                class="w-full input input-bordered input-xs" />
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
+                        <div class="text-pink-800 text-sm flex flex-col gap-1.5">
+                            <div class="uppercase text-gray-500 tracking-wider">camera controls</div>
+                            <select class="select select-sm select-bordered w-full" id="camera-select">
+                                <option value="default">Default View</option>
+                                <option value="dog">Dog View</option>
+                            </select>
+                            <div class="flex gap-2 mt-2">
+                                <div class="flex-none pr-2">eye-x</div><input type="range" min="-100" max="100"
+                                    value="0" id="eyePosition1" class="range range-sm range-accent" />
+                            </div>
+                            <div class="flex gap-2">
+                                <div class="flex-none pr-2">eye-y</div><input type="range" min="-50" max="50" value="0"
+                                    id="eyePosition2" class="range range-sm range-accent" />
+                            </div>
+                            <div class="flex gap-2">
+                                <div class="flex-none pr-2">eye-z</div><input type="range" min="-300" max="300"
+                                    value="0" id="eyePosition3" class="range range-sm range-accent" />
+                            </div>
+                            <div class="flex gap-2 mt-2">
+                                <div class="flex-none pr-2">center-x</div><input type="range" min="-100" max="100"
+                                    value="0" id="centerPosition1" class="range range-sm range-secondary" />
+                            </div>
+                            <div class="flex gap-2">
+                                <div class="flex-none pr-2">center-y</div><input type="range" min="-100" max="100"
+                                    value="0" id="centerPosition2" class="range range-sm range-secondary" />
+                            </div>
+                            <div class="flex gap-2">
+                                <div class="flex-none pr-2">center-z</div><input type="range" min="-100" max="100"
+                                    value="-100" id="centerPosition3" class="range range-sm range-secondary" />
+                            </div>
+                            <div class="flex gap-2 mt-2">
+                                <div class="flex-none pr-2">up-x</div><input type="range" min="-10" max="10" value="0"
+                                    id="upPosition1" class="range range-sm" />
+                            </div>
+                            <div class="flex gap-2">
+                                <div class="flex-none pr-2">up-y</div><input type="range" min="-10" max="10" value="1"
+                                    id="upPosition2" class="range range-sm" />
+                            </div>
+                            <div class="flex gap-2">
+                                <div class="flex-none pr-2">up-z</div><input type="range" min="-10" max="10" value="0"
+                                    id="upPosition3" class="range range-sm" />
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-duck" class="hidden">
+                        <div>
+                            <div class="uppercase mb-2 text-gray-500 text-sm tracking-wider">duck
+                                controls
+                            </div>
+                            <div class="flex flex-col text-pink-800 text-sm gap-2">
+                                <div class="flex gap-2">
+                                    <div class="pr-2">body</div><input id="duckBaseAngle" type="range" min="0" max="360"
+                                        value="0" class="range range-accent" />
+                                </div>
+                                <div class="flex gap-2">
+                                    <div class="pr-2">head</div><input id="duckHeadAngle" type="range" min="-45"
+                                        max="45" value="0" class="range range-accent" />
+                                </div>
+                                <div class="flex gap-2">
+                                    <div class="pr-2">wings</div><input id="duckWingAngle" type="range" min="0" max="45"
+                                        value="0" class="range range-accent" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-dog" class="hidden"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <span style="font-size:30px;cursor:pointer">&#9776; Menu</span>
     <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="javascript:void(0)" class="closebtn">&times;</a>
 
-        <input type="checkbox" id="animation" checked /> Use animation<br />
-        <input type="checkbox" id="lighting" checked /> Use lighting<br />
-        <input type="checkbox" id="texture" checked /> Use texture<br />
-        <input type="checkbox" id="wireframe" /> Use wireframe view<br />
 
-        <div class="input-light">
+
+        <!-- <div class="input-light">
             <h2>Point light</h2>
             <div>
                 X<br />
@@ -218,8 +379,8 @@
                     <option value="dog">Dog View</option>
                 </select>
             </div>
-        </div>
-        <div id="cameraContent">
+        </div> -->
+        <!-- <div id="cameraContent">
             <h2>Look At Camera Control</h2>
             <div>
                 eye-X<br />
@@ -257,8 +418,8 @@
                 up-Z<br />
                 <input type="range" min="-10" max="10" value="0" class="slider" id="upPosition3">
             </div>
-        </div>
-        <div class="input-light">
+        </div> -->
+        <!-- <div class="input-light">
             <h2>Ambient light</h2>
             <div>
                 R: <br /> <input type="text" id="ambientR" value="0.2" />
@@ -269,7 +430,7 @@
             <div>
                 B: <br /> <input type="text" id="ambientB" value="0.2" />
             </div>
-        </div>
+        </div> -->
         <div hidden>
             <h2>Arm Material</h2>
             <div>
@@ -380,9 +541,6 @@
             Camera Shutter Translation<br />
             <input type="range" min="45" max="55" value="0" class="slider" id="shutterCameraTranslationSlider" disabled>
         </div>
-    </div>
-    <div>
-        <canvas id="canvas" style="border: none;" width="1024" height="768"></canvas>
     </div>
 </body>
 

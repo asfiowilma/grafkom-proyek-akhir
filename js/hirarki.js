@@ -2,7 +2,7 @@ var gl;
 var drawType;
 var wireframe = false;
 
-var cameraMode = true
+var cameraMode = true;
 
 function initGL(canvas) {
     try {
@@ -1189,12 +1189,12 @@ function drawShadowMap(side) {
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
     shadowMapLookAtMatrix = mat4.create();
     lookAt(shadowMapLookAtMatrix,
-        parseFloat(document.getElementById("lightPositionX").value / 10.0),
-        parseFloat(document.getElementById("lightPositionY").value / 10.0),
-        parseFloat(document.getElementById("lightPositionZ").value / 10.0),
-        parseFloat(document.getElementById("lightPositionX").value / 10.0) + centers[side * 3],
-        parseFloat(document.getElementById("lightPositionY").value / 10.0) + centers[side * 3 + 1],
-        parseFloat(document.getElementById("lightPositionZ").value / 10.0) + centers[side * 3 + 2],
+        parseFloat($("#lightPositionX").val() / 10.0),
+        parseFloat($("#lightPositionY").val() / 10.0),
+        parseFloat($("#lightPositionZ").val() / 10.0),
+        parseFloat($("#lightPositionX").val() / 10.0) + centers[side * 3],
+        parseFloat($("#lightPositionY").val() / 10.0) + centers[side * 3 + 1],
+        parseFloat($("#lightPositionZ").val() / 10.0) + centers[side * 3 + 2],
         upVectors[side * 3],
         upVectors[side * 3 + 1],
         upVectors[side * 3 + 2]);
@@ -1204,9 +1204,9 @@ function drawShadowMap(side) {
 
     gl.uniform3f(
         shadowMapShaderProgram.pointLightingLocationUniform,
-        parseFloat(document.getElementById("lightPositionX").value / 10.0),
-        parseFloat(document.getElementById("lightPositionY").value / 10.0),
-        parseFloat(document.getElementById("lightPositionZ").value / 10.0)
+        parseFloat($("#lightPositionX").val() / 10.0),
+        parseFloat($("#lightPositionY").val() / 10.0),
+        parseFloat($("#lightPositionZ").val() / 10.0)
     );
     gl.uniform1f(shadowMapShaderProgram.uFarPlaneUniform, 100.0);
 
@@ -1227,15 +1227,15 @@ function drawScene() {
     pMatrix = mat4.create();
     if (cameraMode) {
         lookAt(lookAtMatrix,
-            parseFloat(document.getElementById("eyePosition1").value / 10.0),
-            parseFloat(document.getElementById("eyePosition2").value / 10.0),
-            parseFloat(document.getElementById("eyePosition3").value / 10.0),
-            parseFloat(document.getElementById("centerPosition1").value / 10.0),
-            parseFloat(document.getElementById("centerPosition2").value / 10.0),
-            parseFloat(document.getElementById("centerPosition3").value / 10.0),
-            parseFloat(document.getElementById("upPosition1").value / 10.0),
-            parseFloat(document.getElementById("upPosition2").value / 10.0),
-            parseFloat(document.getElementById("upPosition3").value / 10.0));
+            parseFloat($("#eyePosition1").val() / 10.0),
+            parseFloat($("#eyePosition2").val() / 10.0),
+            parseFloat($("#eyePosition3").val() / 10.0),
+            parseFloat($("#centerPosition1").val() / 10.0),
+            parseFloat($("#centerPosition2").val() / 10.0),
+            parseFloat($("#centerPosition3").val() / 10.0),
+            parseFloat($("#upPosition1").val() / 10.0),
+            parseFloat($("#upPosition2").val() / 10.0),
+            parseFloat($("#upPosition3").val() / 10.0));
         mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
         mat4.multiply(pMatrix, lookAtMatrix);
     } else {
@@ -1252,32 +1252,32 @@ function drawScene() {
         mat4.multiply(pMatrix, mat4.inverse(newMat, mat4.create()));
     }
 
-    gl.uniform1i(shaderProgram.useLightingUniform, document.getElementById("lighting").checked);
-    gl.uniform1i(shaderProgram.useTextureUniform, document.getElementById("texture").checked);
+    gl.uniform1i(shaderProgram.useLightingUniform, $("#lighting").prop("checked"));
+    gl.uniform1i(shaderProgram.useTextureUniform, $("#texture").prop("checked"));
 
     gl.uniform3f(
         shaderProgram.ambientColorUniform,
-        parseFloat(document.getElementById("ambientR").value),
-        parseFloat(document.getElementById("ambientG").value),
-        parseFloat(document.getElementById("ambientB").value)
+        parseFloat($("#ambientR").val()),
+        parseFloat($("#ambientG").val()),
+        parseFloat($("#ambientB").val())
     );
     gl.uniform3f(
         shaderProgram.pointLightingLocationUniform,
-        parseFloat(document.getElementById("lightPositionX").value / 10.0),
-        parseFloat(document.getElementById("lightPositionY").value / 10.0),
-        parseFloat(document.getElementById("lightPositionZ").value / 10.0)
+        parseFloat($("#lightPositionX").val() / 10.0),
+        parseFloat($("#lightPositionY").val() / 10.0),
+        parseFloat($("#lightPositionZ").val() / 10.0)
     );
     gl.uniform3f(
         shaderProgram.pointLightingDiffuseColorUniform,
-        parseFloat(document.getElementById("pointR").value),
-        parseFloat(document.getElementById("pointG").value),
-        parseFloat(document.getElementById("pointB").value)
+        parseFloat($("#pointR").val()),
+        parseFloat($("#pointG").val()),
+        parseFloat($("#pointB").val())
     );
     gl.uniform3f(
         shaderProgram.pointLightingSpecularColorUniform,
-        parseFloat(document.getElementById("pointR").value),
-        parseFloat(document.getElementById("pointG").value),
-        parseFloat(document.getElementById("pointB").value)
+        parseFloat($("#pointR").val()),
+        parseFloat($("#pointG").val()),
+        parseFloat($("#pointB").val())
     );
 
     gl.activeTexture(gl.TEXTURE31);
@@ -1302,17 +1302,17 @@ function animate() {
 
         //ARM
         duckBaseAngle = (duckBaseAngle + update) % (2 * Math.PI);
-        document.getElementById("baseArmRotationSlider").value = duckBaseAngle * 180 / (Math.PI);
+        $("#duckBaseAngle").val(duckBaseAngle * 180 / (Math.PI))
 
         duckHeadAngle += update * duckHeadDirection;
         if (duckHeadAngle < -Math.PI / 4 && duckHeadDirection == -1) duckHeadDirection *= -1;
         if (duckHeadAngle > Math.PI / 4 && duckHeadDirection == 1) duckHeadDirection *= -1;
-        document.getElementById("palmRotationSlider").value = duckHeadAngle * 180 / (Math.PI);
+        $("#duckHeadAngle").val(duckHeadAngle * 180 / (Math.PI));
 
         duckWingAngle += update * duckWingDirection;
         if (duckWingAngle < 0 && duckWingDirection == -1) duckWingDirection *= -1;
         if (duckWingAngle > Math.PI / 4 && duckWingDirection == 1) duckWingDirection *= -1;
-        document.getElementById("secondArmRotationSlider").value = duckWingAngle * 180 / (Math.PI);
+        $("#duckWingAngle").val(duckWingAngle * 180 / (Math.PI));
 
         firstFingerBaseAngle += update * firstFingerBaseDirection;
         if (firstFingerBaseAngle < -Math.PI / 4 && firstFingerBaseDirection == -1) firstFingerBaseDirection *= -1;
@@ -1401,10 +1401,10 @@ function tick() {
 }
 
 function initInputs() {
-    document.getElementById("animation").checked = true;
-    document.getElementById("lighting").checked = true;
-    document.getElementById("texture").checked = true;
-    document.getElementById("animation").onchange = function () {
+    $("#animation").checked = true;
+    $("#lighting").checked = true;
+    $("#texture").checked = true;
+    $("#animation").change(function () {
         animating ^= 1;
         if (animating) {
             document.getElementById("baseArmRotationSlider").disabled = true;
@@ -1445,10 +1445,12 @@ function initInputs() {
             document.getElementById("lensCameraTranslationSlider").disabled = false;
             document.getElementById("shutterCameraTranslationSlider").disabled = false;
         }
-    };
-    document.getElementById("wireframe").onchange = function () {
-        wireframe = !wireframe;
-    }
+    });
+    $("#wireframe").change(() => wireframe = !wireframe)
+
+    $("#duckBaseAngle").change((e) => duckBaseAngle = parseFloat(e.target.value) * Math.PI / 180)
+    $("#duckHeadAngle").change((e) => duckHeadAngle = parseFloat(e.target.value) * Math.PI / 180)
+    $("#duckWingAngle").change((e) => duckWingAngle = parseFloat(e.target.value) * Math.PI / 180)
 
     document.getElementById("baseArmRotationSlider").oninput = function () {
         duckBaseAngle = document.getElementById("baseArmRotationSlider").value * Math.PI / 180;
@@ -1506,15 +1508,6 @@ function initInputs() {
     }
     document.getElementById("shutterCameraTranslationSlider").oninput = function () {
         shutterCameraTranslation = document.getElementById("shutterCameraTranslationSlider").value / 100;
-    }
-    document.getElementById("arm-material").onchange = function () {
-        armMaterial = document.getElementById("arm-material").value;
-    }
-    document.getElementById("camera-material").onchange = function () {
-        cameraMaterial = document.getElementById("camera-material").value;
-    }
-    document.getElementById("room-material").onchange = function () {
-        roomMaterial = document.getElementById("room-material").value;
     }
 
     document.getElementById('camera-select').onchange = function () {
@@ -1590,8 +1583,6 @@ function initTexture() {
 
 function webGLStart() {
     var canvas = document.getElementById("canvas");
-    canvas.height = window.innerHeight * 0.9;
-    canvas.width = window.innerWidth;
     armMaterial = document.getElementById("arm-material").value;
     cameraMaterial = document.getElementById("camera-material").value;
     roomMaterial = document.getElementById("room-material").value;
@@ -1605,12 +1596,15 @@ function webGLStart() {
     gl.enable(gl.DEPTH_TEST);
     initializeAtrributes()
     tick();
-}
 
-function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-}
-
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
+    $(".tab").click(function () {
+        $(".tab").removeClass("tab-active")
+        const tab = $(this)
+        const tabFor = tab.attr('for')
+        tab.addClass("tab-active")
+        $("#tab-general, #tab-duck, #tab-dog").addClass("hidden")
+        if (tabFor == 'general') $("#tab-general").removeClass("hidden")
+        else if (tabFor == 'duck') $("#tab-duck").removeClass("hidden")
+        else if (tabFor == 'dog') $("#tab-dog").removeClass("hidden")
+    })
 }
