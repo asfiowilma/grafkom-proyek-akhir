@@ -646,6 +646,9 @@ var fourthCatLegNode; var lensCameraTranslation2 = 0; var lensCameraDirection2 =
 var catTailNode; var shutterCameraTranslation2 = 0.45; var shutterCameraDirection2 = 1; var catTailAngle = 0; var catTailDirection = 1;
 var catBeakNode;
 
+var baseCubeNode; var baseCubeAngle = 0;
+var baseBoxNode; var baseBoxAngle = 0;
+
 function drawLightSource(shadow) {
     mvPushMatrix();
     //item specific modifications
@@ -689,6 +692,8 @@ function initObjectTree() {
 
     initCatTree()
 
+    initCubeBoxTree()
+
     duckBaseNode.child = duckHeadNode;
     duckHeadNode.sibling = duckSecondWingNode;
     duckSecondWingNode.sibling = duckFirstWingNode;
@@ -720,6 +725,9 @@ function initObjectTree() {
     thirdCatLegNode.child = fourthCatLegNode;
     firstCatLegNode.sibling = catTailNode;
     catTailNode.sibling = catBeakNode;
+
+    baseCatNode.sibling = baseCubeNode;
+    baseCubeNode.sibling = baseBoxNode;
 }
 
 function traverse(node, shadow) {
@@ -1140,6 +1148,13 @@ function animate() {
         if (catTailAngle > Math.PI / 4 && catTailDirection == 1) catTailDirection *= -1;
         $("#catTailAngle").val(catTailAngle * 180 / (Math.PI));
 
+        // CUBE AND BOX 
+        baseCubeAngle = (baseCubeAngle + update) % (Math.PI);
+        $("#baseCubeAngle").val(baseCubeAngle * 180 / (Math.PI));
+
+        baseBoxAngle = (baseBoxAngle + update) % (2 * Math.PI);
+        $("#baseBoxAngle").val(baseBoxAngle * 90 / (Math.PI));
+
     }
     initObjectTree();
 }
@@ -1159,8 +1174,8 @@ function initInputs() {
     $("#texture").checked = true;
     $("#animation").change(function () {
         animating ^= 1;
-        if (animating) $("#tab-duck .range, #tab-cat .range, #tab-dog .range").prop("disabled", true)
-        else $("#tab-duck .range, #tab-cat .range, #tab-dog .range").prop("disabled", false)
+        if (animating) $("#tab-duck .range, #tab-cat .range, #tab-dog .range, #tab-cubebox .range").prop("disabled", true)
+        else $("#tab-duck .range, #tab-cat .range, #tab-dog .range, #tab-cubebox .range").prop("disabled", false)
     });
     $("#wireframe").change(() => wireframe = !wireframe)
 
@@ -1175,6 +1190,9 @@ function initInputs() {
     $("#baseCatAngle").change((e) => baseCatAngle = parseFloat(e.target.value) * Math.PI / 180)
     $("#catEarAngle").change((e) => catEarAngle = parseFloat(e.target.value) * Math.PI / 180)
     $("#catTailAngle").change((e) => catTailAngle = parseFloat(e.target.value) * Math.PI / 180)
+
+    $("#baseCubeAngle").change((e) => baseCubeAngle = parseFloat(e.target.value) * Math.PI / 180)
+    $("#baseBoxAngle").change((e) => baseBoxAngle = parseFloat(e.target.value) * Math.PI / 180)
 
     $('#camera-select').change((e) => {
         if (e.target.value == 'default') {
@@ -1267,10 +1285,11 @@ function webGLStart() {
         const tab = $(this)
         const tabFor = tab.attr('for')
         tab.addClass("tab-active")
-        $("#tab-general, #tab-duck, #tab-dog, #tab-cat").addClass("hidden")
+        $("#tab-general, #tab-duck, #tab-dog, #tab-cat, #tab-cubebox").addClass("hidden")
         if (tabFor == 'general') $("#tab-general").removeClass("hidden")
         else if (tabFor == 'duck') $("#tab-duck").removeClass("hidden")
         else if (tabFor == 'dog') $("#tab-dog").removeClass("hidden")
         else if (tabFor == 'cat') $("#tab-cat").removeClass("hidden")
+        else if (tabFor == 'cubebox') $("#tab-cubebox").removeClass("hidden")
     })
 }

@@ -74,7 +74,7 @@ function drawPuppyBeak(shadow) {
 function initPuppyTree() {
     // PUPPY
     basePuppyNode = { "draw": drawPuppyBase, "matrix": mat4.identity(mat4.create()), "location": [5.0, 0.0, 0.0], "rotation": basePuppyAngle };
-    mat4.translate(basePuppyNode.matrix, [9.0, -1.5, 0.0]);
+    mat4.translate(basePuppyNode.matrix, [9.0, -2.5, 0.0]);
     mat4.rotate(basePuppyNode.matrix, basePuppyAngle, [0.0, 1.5, 0.0]);
 
     // Kuping

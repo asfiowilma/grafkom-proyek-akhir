@@ -79,7 +79,7 @@ function drawCatBeak(shadow) {
 function initCatTree() {
     // Cat
     baseCatNode = { "draw": drawCatBase, "matrix": mat4.identity(mat4.create()) };
-    mat4.translate(baseCatNode.matrix, [0.0, -3.5, -2.0]);
+    mat4.translate(baseCatNode.matrix, [0.0, -3.75, -2.0]);
     mat4.rotate(baseCatNode.matrix, baseCatAngle, [0.0, 1.5, 0.0]);
 
     // Kuping
