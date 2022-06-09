@@ -79,13 +79,13 @@ function initPuppyTree() {
 
     // Kuping
     firstPuppyEarNode = { "draw": drawPuppyEars, "matrix": mat4.identity(mat4.create()) };
-    mat4.translate(firstPuppyEarNode.matrix, [0.45, -0.25, 0.45]);
-    mat4.rotate(firstPuppyEarNode.matrix, firstCameraLegAngle, [-1.0, 0.0, 1.0]);
+    mat4.translate(firstPuppyEarNode.matrix, [0.2, -0.25, 0.45]);
+    mat4.rotate(firstPuppyEarNode.matrix, -puppyEarAngle, [0.0, 0.0, 1.0]);
     mat4.translate(firstPuppyEarNode.matrix, [0.5, 1.0, 0.0]);
 
     secondPuppyEarNode = { "draw": drawPuppyEars, "matrix": mat4.identity(mat4.create()) };
-    mat4.translate(secondPuppyEarNode.matrix, [-0.45, -0.25, 0.45]);
-    mat4.rotate(secondPuppyEarNode.matrix, secondCameraLegAngle, [-1.0, 0.0, -1.0]);
+    mat4.translate(secondPuppyEarNode.matrix, [-0.2, -0.25, 0.45]);
+    mat4.rotate(secondPuppyEarNode.matrix, puppyEarAngle, [0.0, 0.0, 1.0]);
     mat4.translate(secondPuppyEarNode.matrix, [-0.5, 1.0, 0.0]);
 
     // Puppy body
@@ -113,4 +113,4 @@ function initPuppyTree() {
     puppyTailNode = { "draw": drawPuppyTail, "matrix": mat4.identity(mat4.create()) };
     mat4.translate(puppyTailNode.matrix, [0.0, 2.5, -2.75]);
     mat4.rotate(puppyTailNode.matrix, puppyTailAngle, [0.0, 0.0, 1.0]);
-  }
+}

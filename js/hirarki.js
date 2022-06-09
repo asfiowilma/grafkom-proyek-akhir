@@ -615,28 +615,28 @@ var duckBaseNode; var duckBaseAngle = 0;
 var duckFirstWingNode; var duckWingAngle = 0;
 var duckSecondWingNode; var duckWingDirection = 1;
 var duckHeadNode; var duckHeadAngle = 0; var duckHeadDirection = 1;
-var duckBottomLip; var e; var firstFingerBaseAngle = 0; var firstFingerBaseDirection = 1;
-var duckTopLipNode; var firstFingerTopAngle = 0; var firstFingerTopDirection = 1;
-var duckFirstLegNode; var secondFingerBaseAngle = 0; var secondFingerBaseDirection = 1;
-var duckSecondLegNode; var secondFingerTopAngle = 0; var secondFingerTopDirection = 1;
-var duckFirstFootNode; var thirdFingerBaseAngle = 0; var thirdFingerBaseDirection = 1;
-var duckSecondFootNode; var thirdFingerTopAngle = 0; var thirdFingerTopDirection = 1;
+var duckBottomLip;
+var duckTopLipNode;
+var duckFirstLegNode;
+var duckSecondLegNode;
+var duckFirstFootNode;
+var duckSecondFootNode;
 
 var basePuppyNode; var basePuppyAngle = 0;
-var firstPuppyEarNode; var firstCameraLegAngle = 0; var firstCameraLegDirection = 1;
-var secondPuppyEarNode; var secondCameraLegAngle = 0; var secondCameraLegDirection = 1;
-var thirdCameraLegNode; var thirdCameraLegAngle = 0; var thirdCameraLegDirection = 1;
+var firstPuppyEarNode; var puppyEarAngle = 0; var puppyEarDirection = 1;
+var secondPuppyEarNode;
+var thirdCameraLegNode;
 var puppyBodyNode;
-var firstPuppyLegNode; var secondCameraBodyTranslation = 0; var secondCameraBodyDirection = 1;
-var secondPuppyLegNode; var thirdCameraBodyTranslation = 0; var thirdCameraBodyDirection = 1;
-var thirdPuppyLegNode; var fourthCameraBodyTranslation = 0; var fourthCameraBodyDirection = 1;
-var fourthPuppyLegNode; var lensCameraTranslation = 0; var lensCameraDirection = 1;
-var puppyTailNode; var shutterCameraTranslation = 0.45; var shutterCameraDirection = 1; var puppyTailAngle = 0; var puppyTailDirection = 1;
+var firstPuppyLegNode;
+var secondPuppyLegNode;
+var thirdPuppyLegNode;
+var fourthPuppyLegNode;
+var puppyTailNode; var puppyTailAngle = 0; var puppyTailDirection = 1;
 var puppyBeakNode;
 
 var baseCatNode; var baseCatAngle = 0;
-var firstCatEarNode; var firstCameraLegAngle2 = 0; var firstCameraLegDirection2 = 1;
-var secondCatEarNode; var secondCameraLegAngle2 = 0; var secondCameraLegDirection2 = 1;
+var firstCatEarNode; var catEarAngle = 0; var catEarDirection = 1;
+var secondCatEarNode;
 var thirdCameraLegNode; var thirdCameraLegAngle2 = 0; var thirdCameraLegDirection2 = 1;
 var catBodyNode;
 var firstCatLegNode; var secondCameraBodyTranslation2 = 0; var secondCameraBodyDirection2 = 1;
@@ -1111,134 +1111,34 @@ function animate() {
         if (duckWingAngle > Math.PI / 4 && duckWingDirection == 1) duckWingDirection *= -1;
         $("#duckWingAngle").val(duckWingAngle * 180 / (Math.PI));
 
-        firstFingerBaseAngle += update * firstFingerBaseDirection;
-        if (firstFingerBaseAngle < -Math.PI / 4 && firstFingerBaseDirection == -1) firstFingerBaseDirection *= -1;
-        if (firstFingerBaseAngle > Math.PI / 8 && firstFingerBaseDirection == 1) firstFingerBaseDirection *= -1;
-        document.getElementById("firstFingerBaseRotationSlider").value = firstFingerBaseAngle * 180 / (Math.PI);
-
-        firstFingerTopAngle += update * firstFingerTopDirection;
-        if (firstFingerTopAngle < 0 && firstFingerTopDirection == -1) firstFingerTopDirection *= -1;
-        if (firstFingerTopAngle > Math.PI / 8 && firstFingerTopDirection == 1) firstFingerTopDirection *= -1;
-        document.getElementById("firstFingerTopRotationSlider").value = firstFingerTopAngle * 180 / (Math.PI);
-
-        secondFingerBaseAngle += update * secondFingerBaseDirection;
-        if (secondFingerBaseAngle < -Math.PI / 4 && secondFingerBaseDirection == -1) secondFingerBaseDirection *= -1;
-        if (secondFingerBaseAngle > Math.PI / 8 && secondFingerBaseDirection == 1) secondFingerBaseDirection *= -1;
-        document.getElementById("secondFingerBaseRotationSlider").value = secondFingerBaseAngle * 180 / (Math.PI);
-
-        secondFingerTopAngle += update * secondFingerTopDirection;
-        if (secondFingerTopAngle < 0 && secondFingerTopDirection == -1) secondFingerTopDirection *= -1;
-        if (secondFingerTopAngle > Math.PI / 8 && secondFingerTopDirection == 1) secondFingerTopDirection *= -1;
-        document.getElementById("secondFingerTopRotationSlider").value = secondFingerTopAngle * 180 / (Math.PI);
-
-        thirdFingerBaseAngle += update * thirdFingerBaseDirection;
-        if (thirdFingerBaseAngle < -Math.PI / 4 && thirdFingerBaseDirection == -1) thirdFingerBaseDirection *= -1;
-        if (thirdFingerBaseAngle > Math.PI / 8 && thirdFingerBaseDirection == 1) thirdFingerBaseDirection *= -1;
-        document.getElementById("thirdFingerBaseRotationSlider").value = thirdFingerBaseAngle * 180 / (Math.PI);
-
-        thirdFingerTopAngle += update * thirdFingerTopDirection;
-        if (thirdFingerTopAngle < 0 && thirdFingerTopDirection == -1) thirdFingerTopDirection *= -1;
-        if (thirdFingerTopAngle > Math.PI / 8 && thirdFingerTopDirection == 1) thirdFingerTopDirection *= -1;
-        document.getElementById("thirdFingerTopRotationSlider").value = thirdFingerTopAngle * 180 / (Math.PI);
-
         //PUPPY
         basePuppyAngle = (basePuppyAngle + update) % (2 * Math.PI);
-        document.getElementById("baseCameraRotationSlider").value = basePuppyAngle * 180 / (Math.PI);
+        $("#basePuppyAngle").val(basePuppyAngle * 180 / (Math.PI));
 
-        firstCameraLegAngle += update * firstCameraLegDirection;
-        if (firstCameraLegAngle < 0 && firstCameraLegDirection == -1) firstCameraLegDirection *= -1;
-        if (firstCameraLegAngle > Math.PI / 4 && firstCameraLegDirection == 1) firstCameraLegDirection *= -1;
-        document.getElementById("firstCameraLegRotationSlider").value = firstCameraLegAngle * 180 / (Math.PI);
-
-        secondCameraLegAngle += update * secondCameraLegDirection;
-        if (secondCameraLegAngle < 0 && secondCameraLegDirection == -1) secondCameraLegDirection *= -1;
-        if (secondCameraLegAngle > Math.PI / 4 && secondCameraLegDirection == 1) secondCameraLegDirection *= -1;
-        document.getElementById("secondCameraLegRotationSlider").value = secondCameraLegAngle * 180 / (Math.PI);
-
-        thirdCameraLegAngle += update * thirdCameraLegDirection;
-        if (thirdCameraLegAngle < 0 && thirdCameraLegDirection == -1) thirdCameraLegDirection *= -1;
-        if (thirdCameraLegAngle > Math.PI / 4 && thirdCameraLegDirection == 1) thirdCameraLegDirection *= -1;
-        document.getElementById("thirdCameraLegRotationSlider").value = thirdCameraLegAngle * 180 / (Math.PI);
-
-        secondCameraBodyTranslation += 0.5 * update * secondCameraBodyDirection;
-        if (secondCameraBodyTranslation < 0.05 && secondCameraBodyDirection == -1) secondCameraBodyDirection *= -1;
-        if (secondCameraBodyTranslation > 0.3 && secondCameraBodyDirection == 1) secondCameraBodyDirection *= -1;
-        document.getElementById("secondCameraBodyTranslationSlider").value = secondCameraBodyTranslation * 100;
-
-        thirdCameraBodyTranslation += 0.5 * update * thirdCameraBodyDirection;
-        if (thirdCameraBodyTranslation < 0.05 && thirdCameraBodyDirection == -1) thirdCameraBodyDirection *= -1;
-        if (thirdCameraBodyTranslation > 0.2 && thirdCameraBodyDirection == 1) thirdCameraBodyDirection *= -1;
-        document.getElementById("thirdCameraBodyTranslationSlider").value = thirdCameraBodyTranslation * 100;
-
-        fourthCameraBodyTranslation += 0.5 * update * fourthCameraBodyDirection;
-        if (fourthCameraBodyTranslation < 0.05 && fourthCameraBodyDirection == -1) fourthCameraBodyDirection *= -1;
-        if (fourthCameraBodyTranslation > 0.2 && fourthCameraBodyDirection == 1) fourthCameraBodyDirection *= -1;
-        document.getElementById("fourthCameraBodyTranslationSlider").value = fourthCameraBodyTranslation * 100;
-
-        lensCameraTranslation += 0.5 * update * lensCameraDirection;
-        if (lensCameraTranslation < 3 && lensCameraDirection == -1) lensCameraDirection *= -1;
-        if (lensCameraTranslation > 3.25 && lensCameraDirection == 1) lensCameraDirection *= -1;
-        document.getElementById("lensCameraTranslationSlider").value = lensCameraTranslation * 100;
-
-        shutterCameraTranslation += 0.5 * update * shutterCameraDirection;
-        if (shutterCameraTranslation < 0.45 && shutterCameraDirection == -1) shutterCameraDirection *= -1;
-        if (shutterCameraTranslation > 0.55 && shutterCameraDirection == 1) shutterCameraDirection *= -1;
-        document.getElementById("shutterCameraTranslationSlider").value = shutterCameraTranslation * 100;
+        puppyEarAngle += update * puppyEarDirection;
+        if (puppyEarAngle < 0 && puppyEarDirection == -1) puppyEarDirection *= -1;
+        if (puppyEarAngle > Math.PI / 8 && puppyEarDirection == 1) puppyEarDirection *= -1;
+        $("#puppyEarAngle").val(puppyEarAngle * 180 / (Math.PI));
 
         puppyTailAngle += update * puppyTailDirection;
-        if (puppyTailAngle < -0.75 && puppyTailDirection == -1) puppyTailDirection *= -1;
-        if (puppyTailAngle > 0.75 && puppyTailDirection == 1) puppyTailDirection *= -1;
-        document.getElementById("secondArmRotationSlider").value = puppyTailAngle * 180 / (Math.PI);
+        if (puppyTailAngle < -Math.PI / 4 && puppyTailDirection == -1) puppyTailDirection *= -1;
+        if (puppyTailAngle > Math.PI / 4 && puppyTailDirection == 1) puppyTailDirection *= -1;
+        $("#puppyTailAngle").val(puppyTailAngle * 180 / (Math.PI));
 
         // CAT
 
         baseCatAngle = (baseCatAngle + update) % (2 * Math.PI);
-        document.getElementById("baseCameraRotationSlider").value = baseCatAngle * 180 / (Math.PI);
+        $("#baseCatAngle").val(baseCatAngle * 180 / (Math.PI));
 
-        firstCameraLegAngle2 += update * firstCameraLegDirection2;
-        if (firstCameraLegAngle2 < 0 && firstCameraLegDirection2 == -1) firstCameraLegDirection2 *= -1;
-        if (firstCameraLegAngle2 > Math.PI / 4 && firstCameraLegDirection2 == 1) firstCameraLegDirection2 *= -1;
-        document.getElementById("firstCameraLegRotationSlider").value = firstCameraLegAngle2 * 180 / (Math.PI);
-
-        secondCameraLegAngle2 += update * secondCameraLegDirection2;
-        if (secondCameraLegAngle2 < 0 && secondCameraLegDirection2 == -1) secondCameraLegDirection2 *= -1;
-        if (secondCameraLegAngle2 > Math.PI / 4 && secondCameraLegDirection2 == 1) secondCameraLegDirection2 *= -1;
-        document.getElementById("secondCameraLegRotationSlider").value = secondCameraLegAngle2 * 180 / (Math.PI);
-
-        thirdCameraLegAngle2 += update * thirdCameraLegDirection2;
-        if (thirdCameraLegAngle2 < 0 && thirdCameraLegDirection2 == -1) thirdCameraLegDirection2 *= -1;
-        if (thirdCameraLegAngle2 > Math.PI / 4 && thirdCameraLegDirection2 == 1) thirdCameraLegDirection2 *= -1;
-        document.getElementById("thirdCameraLegRotationSlider").value = thirdCameraLegAngle2 * 180 / (Math.PI);
-
-        secondCameraBodyTranslation2 += 0.5 * update * secondCameraBodyDirection2;
-        if (secondCameraBodyTranslation2 < 0.05 && secondCameraBodyDirection2 == -1) secondCameraBodyDirection2 *= -1;
-        if (secondCameraBodyTranslation2 > 0.3 && secondCameraBodyDirection2 == 1) secondCameraBodyDirection2 *= -1;
-        document.getElementById("secondCameraBodyTranslationSlider").value = secondCameraBodyTranslation2 * 100;
-
-        thirdCameraBodyTranslation2 += 0.5 * update * thirdCameraBodyDirection2;
-        if (thirdCameraBodyTranslation2 < 0.05 && thirdCameraBodyDirection2 == -1) thirdCameraBodyDirection2 *= -1;
-        if (thirdCameraBodyTranslation2 > 0.2 && thirdCameraBodyDirection2 == 1) thirdCameraBodyDirection2 *= -1;
-        document.getElementById("thirdCameraBodyTranslationSlider").value = thirdCameraBodyTranslation2 * 100;
-
-        fourthCameraBodyTranslation2 += 0.5 * update * fourthCameraBodyDirection2;
-        if (fourthCameraBodyTranslation2 < 0.05 && fourthCameraBodyDirection2 == -1) fourthCameraBodyDirection2 *= -1;
-        if (fourthCameraBodyTranslation2 > 0.2 && fourthCameraBodyDirection2 == 1) fourthCameraBodyDirection2 *= -1;
-        document.getElementById("fourthCameraBodyTranslationSlider").value = fourthCameraBodyTranslation2 * 100;
-
-        lensCameraTranslation2 += 0.5 * update * lensCameraDirection2;
-        if (lensCameraTranslation2 < 3 && lensCameraDirection2 == -1) lensCameraDirection2 *= -1;
-        if (lensCameraTranslation2 > 3.25 && lensCameraDirection2 == 1) lensCameraDirection2 *= -1;
-        document.getElementById("lensCameraTranslationSlider").value = lensCameraTranslation2 * 100;
-
-        shutterCameraTranslation2 += 0.5 * update * shutterCameraDirection2;
-        if (shutterCameraTranslation2 < 0.45 && shutterCameraDirection2 == -1) shutterCameraDirection2 *= -1;
-        if (shutterCameraTranslation2 > 0.55 && shutterCameraDirection2 == 1) shutterCameraDirection2 *= -1;
-        document.getElementById("shutterCameraTranslationSlider").value = shutterCameraTranslation2 * 100;
+        catEarAngle += update * catEarDirection;
+        if (catEarAngle < 0 && catEarDirection == -1) catEarDirection *= -1;
+        if (catEarAngle > Math.PI / 4 && catEarDirection == 1) catEarDirection *= -1;
+        $("#catEarAngle").val(catEarAngle * 180 / (Math.PI));
 
         catTailAngle += update * catTailDirection;
-        if (catTailAngle < -0.75 && catTailDirection == -1) catTailDirection *= -1;
-        if (catTailAngle > 0.75 && catTailDirection == 1) catTailDirection *= -1;
-        document.getElementById("secondArmRotationSlider").value = catTailAngle * 180 / (Math.PI);
+        if (catTailAngle < -Math.PI / 4 && catTailDirection == -1) catTailDirection *= -1;
+        if (catTailAngle > Math.PI / 4 && catTailDirection == 1) catTailDirection *= -1;
+        $("#catTailAngle").val(catTailAngle * 180 / (Math.PI));
 
     }
     initObjectTree();
@@ -1259,45 +1159,8 @@ function initInputs() {
     $("#texture").checked = true;
     $("#animation").change(function () {
         animating ^= 1;
-        if (animating) {
-            document.getElementById("baseArmRotationSlider").disabled = true;
-            document.getElementById("secondArmRotationSlider").disabled = true;
-            document.getElementById("palmRotationSlider").disabled = true;
-            document.getElementById("firstFingerBaseRotationSlider").disabled = true;
-            document.getElementById("firstFingerToheRdDuckationSlider").disabled = true;
-            document.getElementById("secondFingerBaseRotationSlider").disabled = true;
-            document.getElementById("secondFingerTopRotationSlider").disabled = true;
-            document.getElementById("thirdFingerBaseRotationSlider").disabled = true;
-            document.getElementById("thirdFingerTopRotationSlider").disabled = true;
-            document.getElementById("baseCameraRotationSlider").disabled = true;
-            document.getElementById("firstCameraLegRotationSlider").disabled = true;
-            document.getElementById("secondCameraLegRotationSlider").disabled = true;
-            document.getElementById("thirdCameraLegRotationSlider").disabled = true;
-            document.getElementById("secondCameraBodyTranslationSlider").disabled = true;
-            document.getElementById("thirdCameraBodyTranslationSlider").disabled = true;
-            document.getElementById("fourthCameraBodyTranslationSlider").dDuckbled = true;
-            document.getElementById("lensCameraTranslationSlider").disabled = true;
-            document.getElementById("shutterCameraTranslationSlider").disabled = true;
-        } else {
-            document.getElementById("baseArmRotationSlider").disabled = false;
-            document.getElementById("secondArmRotationSlider").disabled = false;
-            document.getElementById("palmRotationSlider").disabled = false;
-            document.getElementById("firstFingerBaseRotationSlider").disabled = false;
-            document.getElementById("firstFingerTopRotationSlider").disabled = false;
-            document.getElementById("secondFingerBaseRotationSlider").disabled = false;
-            document.getElementById("secondFingerTopRotationSlider").disabled = false;
-            document.getElementById("thirdFingerBaseRotationSlider").disabled = false;
-            document.getElementById("thirdFingerTopRotationSlider").disabled = false;
-            document.getElementById("baseCameraRotationSlider").disabled = false;
-            document.getElementById("firstCameraLegRotationSlider").disabled = false;
-            document.getElementById("secondCameraLegRotationSlider").disabled = false;
-            document.getElementById("thirdCameraLegRotationSlider").disabled = false;
-            document.getElementById("secondCameraBodyTranslationSlider").disabled = false;
-            document.getElementById("thirdCameraBodyTranslationSlider").disabled = false;
-            document.getElementById("fourthCameraBodyTranslationSlider").disabled = false;
-            document.getElementById("lensCameraTranslationSlider").disabled = false;
-            document.getElementById("shutterCameraTranslationSlider").disabled = false;
-        }
+        if (animating) $("#tab-duck .range, #tab-cat .range, #tab-dog .range").prop("disabled", true)
+        else $("#tab-duck .range, #tab-cat .range, #tab-dog .range").prop("disabled", false)
     });
     $("#wireframe").change(() => wireframe = !wireframe)
 
@@ -1305,75 +1168,24 @@ function initInputs() {
     $("#duckHeadAngle").change((e) => duckHeadAngle = parseFloat(e.target.value) * Math.PI / 180)
     $("#duckWingAngle").change((e) => duckWingAngle = parseFloat(e.target.value) * Math.PI / 180)
 
-    document.getElementById("baseArmRotationSlider").oninput = function () {
-        duckBaseAngle = document.getElementById("baseArmRotationSlider").value * Math.PI / 180;
-    }
-    document.getElementById("secondArmRotationSlider").oninput = function () {
-        secondArmAngle = document.getElementById("secondArmRotationSlider").value * Math.PI / 180;
-    }
-    document.getElementById("palmRotationSlider").oninput = function () {
-        duckHeadAngle = document.getElementById("palmRotationSlider").value * Math.PI / 180;
-    }
-    document.getElementById("firstFingerBaseRotationSlider").oninput = function () {
-        firstFingerBaseAngle = document.getElementById("firstFingerBaseRotationSlider").value * Math.PI / 180;
-    }
-    document.getElementById("firstFingerTopRotationSlider").oninput = function () {
-        firstFingerTopAngle = document.getElementById("firstFingerTopRotationSlider").value * Math.PI / 180;
-    }
-    document.getElementById("secondFingerBaseRotationSlider").oninput = function () {
-        secondFingerBaseAngle = document.getElementById("secondFingerBaseRotationSlider").value * Math.PI / 180;
-    }
-    document.getElementById("secondFingerTopRotationSlider").oninput = function () {
-        secondFingerTopAngle = document.getElementById("secondFingerTopRotationSlider").value * Math.PI / 180;
-    }
-    document.getElementById("thirdFingerBaseRotationSlider").oninput = function () {
-        thirdFingerBaseAngle = document.getElementById("thirdFingerBaseRotationSlider").value * Math.PI / 180;
-    }
-    document.getElementById("thirdFingerTopRotationSlider").oninput = function () {
-        thirdFingerTopAngle = document.getElementById("thirdFingerTopRotationSlider").value * Math.PI / 180;
-    }
-    document.getElementById("baseCameraRotationSlider").oninput = function () {
-        basePuppyAngle = document.getElementById("baseCameraRotationSlider").value * Math.PI / 180;
-    }
-    document.getElementById("firstCameraLegRotationSlider").oninput = function () {
-        firstCameraLegAngle = document.getElementById("firstCameraLegRotationSlider").value * Math.PI / 180;
-    }
-    document.getElementById("secondCameraLegRotationSlider").oninput = function () {
-        secondCameraLegAngle = document.getElementById("secondCameraLegRotationSlider").value * Math.PI / 180;
-    }
-    document.getElementById("thirdCameraLegRotationSlider").oninput = function () {
-        thirdCameraLegAngle = document.getElementById("thirdCameraLegRotationSlider").value * Math.PI / 180;
-    }
-    document.getElementById("secondCameraBodyTranslationSlider").oninput = function () {
-        thirdCameraLegAngle = document.getElementById("thirdCameraLegRotationSlider").value * Math.PI / 180;
-    }
-    document.getElementById("secondCameraBodyTranslationSlider").oninput = function () {
-        secondCameraBodyTranslation = document.getElementById("secondCameraBodyTranslationSlider").value / 100;
-    }
-    document.getElementById("thirdCameraBodyTranslationSlider").oninput = function () {
-        thirdCameraBodyTranslation = document.getElementById("thirdCameraBodyTranslationSlider").value / 100;
-    }
-    document.getElementById("fourthCameraBodyTranslationSlider").oninput = function () {
-        fourthCameraBodyTranslation = document.getElementById("fourthCameraBodyTranslationSlider").value / 100;
-    }
-    document.getElementById("lensCameraTranslationSlider").oninput = function () {
-        lensCameraTranslation = document.getElementById("lensCameraTranslationSlider").value / 100;
-    }
-    document.getElementById("shutterCameraTranslationSlider").oninput = function () {
-        shutterCameraTranslation = document.getElementById("shutterCameraTranslationSlider").value / 100;
-    }
+    $("#basePuppyAngle").change((e) => basePuppyAngle = parseFloat(e.target.value) * Math.PI / 180)
+    $("#puppyEarAngle").change((e) => puppyEarAngle = parseFloat(e.target.value) * Math.PI / 180)
+    $("#puppyTailAngle").change((e) => puppyTailAngle = parseFloat(e.target.value) * Math.PI / 180)
 
-    document.getElementById('camera-select').onchange = function () {
-        camera_mode = document.getElementById('camera-select').value;
-        if (camera_mode == 'default') {
-            document.getElementById('cameraContent').style.display = 'block';
+    $("#baseCatAngle").change((e) => baseCatAngle = parseFloat(e.target.value) * Math.PI / 180)
+    $("#catEarAngle").change((e) => catEarAngle = parseFloat(e.target.value) * Math.PI / 180)
+    $("#catTailAngle").change((e) => catTailAngle = parseFloat(e.target.value) * Math.PI / 180)
+
+    $('#camera-select').change((e) => {
+        if (e.target.value == 'default') {
+            $('#camera-controls .range').prop('disabled', false);
             cameraMode = true;
         }
         else {
             cameraMode = false;
-            document.getElementById('cameraContent').style.display = 'none';
+            $('#camera-controls .range').prop('disabled', true);
         }
-    }
+    })
 }
 
 function configureTexture(image, textureno) {
@@ -1455,9 +1267,10 @@ function webGLStart() {
         const tab = $(this)
         const tabFor = tab.attr('for')
         tab.addClass("tab-active")
-        $("#tab-general, #tab-duck, #tab-dog").addClass("hidden")
+        $("#tab-general, #tab-duck, #tab-dog, #tab-cat").addClass("hidden")
         if (tabFor == 'general') $("#tab-general").removeClass("hidden")
         else if (tabFor == 'duck') $("#tab-duck").removeClass("hidden")
         else if (tabFor == 'dog') $("#tab-dog").removeClass("hidden")
+        else if (tabFor == 'cat') $("#tab-cat").removeClass("hidden")
     })
 }

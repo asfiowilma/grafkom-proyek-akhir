@@ -184,8 +184,9 @@
                     <div class="font-extrabold text-4xl text-pink-900 mb-4">Final Project</div>
                     <div class="tabs mb-4">
                         <a for="general" class="tab tab-lifted tab-active">general controls</a>
-                        <a for="duck" class="tab tab-lifted">duck</a>
-                        <a for="dog" class="tab tab-lifted">dog</a>
+                        <a for="duck" class="tab tab-lifted">duckling</a>
+                        <a for="cat" class="tab tab-lifted">kitten</a>
+                        <a for="dog" class="tab tab-lifted">puppy</a>
                     </div>
                     <div id="tab-general" class="grid grid-cols-2 gap-4">
                         <div class="flex flex-col gap-4">
@@ -272,7 +273,7 @@
                             </div>
                         </div>
 
-                        <div class="text-pink-800 text-sm flex flex-col gap-1.5">
+                        <div id="camera-controls" class="text-pink-800 text-sm flex flex-col gap-1.5">
                             <div class="uppercase text-gray-500 tracking-wider">camera controls</div>
                             <select class="select select-sm select-bordered w-full" id="camera-select">
                                 <option value="default">Default View</option>
@@ -288,7 +289,7 @@
                             </div>
                             <div class="flex gap-2">
                                 <div class="flex-none pr-2">eye-z</div><input type="range" min="-300" max="300"
-                                    value="0" id="eyePosition3" class="range range-sm range-accent" />
+                                    value="100" id="eyePosition3" class="range range-sm range-accent" />
                             </div>
                             <div class="flex gap-2 mt-2">
                                 <div class="flex-none pr-2">center-x</div><input type="range" min="-100" max="100"
@@ -337,7 +338,46 @@
                             </div>
                         </div>
                     </div>
-                    <div id="tab-dog" class="hidden"></div>
+                    <div id="tab-cat" class="hidden">
+                        <div>
+                            <div class="uppercase mb-2 text-gray-500 text-sm tracking-wider">kitten controls
+                            </div>
+                            <div class="flex flex-col text-pink-800 text-sm gap-2">
+                                <div class="flex gap-2">
+                                    <div class="pr-2">body</div><input id="baseCatAngle" type="range" min="0" max="360"
+                                        value="0" class="range range-accent" />
+                                </div>
+                                <div class="flex gap-2">
+                                    <div class="pr-2">ears</div><input id="catEarAngle" type="range" min="-45" max="45"
+                                        value="0" class="range range-accent" />
+                                </div>
+                                <div class="flex gap-2">
+                                    <div class="pr-2">tail</div><input id="catTailAngle" type="range" min="-45" max="45"
+                                        value="0" class="range range-accent" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="tab-dog" class="hidden">
+                        <div>
+                            <div class="uppercase mb-2 text-gray-500 text-sm tracking-wider">puppy controls
+                            </div>
+                            <div class="flex flex-col text-pink-800 text-sm gap-2">
+                                <div class="flex gap-2">
+                                    <div class="pr-2">body</div><input id="basePuppyAngle" type="range" min="0"
+                                        max="360" value="0" class="range range-accent" />
+                                </div>
+                                <div class="flex gap-2">
+                                    <div class="pr-2">ears</div><input id="puppyEarAngle" type="range" min="0" max="22"
+                                        value="0" class="range range-accent" />
+                                </div>
+                                <div class="flex gap-2">
+                                    <div class="pr-2">tail</div><input id="puppyTailAngle" type="range" min="0" max="45"
+                                        value="0" class="range range-accent" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

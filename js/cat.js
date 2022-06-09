@@ -85,13 +85,13 @@ function initCatTree() {
     // Kuping
     firstCatEarNode = { "draw": drawCatEars, "matrix": mat4.identity(mat4.create()) };
     mat4.translate(firstCatEarNode.matrix, [0.25, 0.0, 0.45]);
-    mat4.rotate(firstCatEarNode.matrix, firstCameraLegAngle, [-1.0, 0.0, 1.0]);
-    mat4.translate(firstCatEarNode.matrix, [0.5, 1.0, 0.0]);
+    mat4.rotate(firstCatEarNode.matrix, -catEarAngle, [0.0, 0.0, 1.0]);
+    mat4.translate(firstCatEarNode.matrix, [0.0, 1.0, 0.0]);
 
     secondCatEarNode = { "draw": drawCatEars, "matrix": mat4.identity(mat4.create()) };
     mat4.translate(secondCatEarNode.matrix, [-0.25, 0.0, 0.45]);
-    mat4.rotate(secondCatEarNode.matrix, secondCameraLegAngle, [-1.0, 0.0, -1.0]);
-    mat4.translate(secondCatEarNode.matrix, [-0.5, 1.0, 0.0]);
+    mat4.rotate(secondCatEarNode.matrix, catEarAngle, [0.0, 0.0, 1.0]);
+    mat4.translate(secondCatEarNode.matrix, [0.0, 1.0, 0.0]);
 
     // Cat body
     catBodyNode = { "draw": drawCatBody, "matrix": mat4.identity(mat4.create()) };
@@ -129,4 +129,4 @@ function initCatTree() {
     // console.log(fourthCatLegNode)
     // console.log(catTailNode)
     // console.log(catBeakNode)
-  }
+}
