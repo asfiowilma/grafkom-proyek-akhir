@@ -11,7 +11,6 @@ function drawCatBase(shadow) {
     mvPopMatrix(shadow);
 }
 
-// Kuping anjing
 function drawCatEars(shadow) {
     mvPushMatrix();
     //item specific modifications
@@ -24,7 +23,6 @@ function drawCatEars(shadow) {
     mvPopMatrix(shadow);
 }
 
-// Badan anjing
 function drawCatBody(shadow) {
     mvPushMatrix();
     //item specific modifications
@@ -37,7 +35,6 @@ function drawCatBody(shadow) {
     mvPopMatrix(shadow);
 }
 
-// Kaki anjing
 function drawCatLegs(shadow) {
     mvPushMatrix();
     //item specific modifications
@@ -50,7 +47,6 @@ function drawCatLegs(shadow) {
     mvPopMatrix(shadow);
 }
 
-// Ekor anjing
 function drawCatTail(shadow) {
     mvPushMatrix();
     //item specific modifications
@@ -63,7 +59,6 @@ function drawCatTail(shadow) {
     mvPopMatrix(shadow);
 }
 
-// Moncong anjing
 function drawCatBeak(shadow) {
     mvPushMatrix();
     //item specific modifications
@@ -77,12 +72,11 @@ function drawCatBeak(shadow) {
 }
 
 function initCatTree() {
-    // Cat
+    // CAT
     baseCatNode = { "draw": drawCatBase, "matrix": mat4.identity(mat4.create()) };
     mat4.translate(baseCatNode.matrix, [0.0, -3.75, -2.0]);
     mat4.rotate(baseCatNode.matrix, baseCatAngle, [0.0, 1.5, 0.0]);
 
-    // Kuping
     firstCatEarNode = { "draw": drawCatEars, "matrix": mat4.identity(mat4.create()) };
     mat4.translate(firstCatEarNode.matrix, [0.25, 0.0, 0.45]);
     mat4.rotate(firstCatEarNode.matrix, -catEarAngle, [0.0, 0.0, 1.0]);
@@ -93,11 +87,9 @@ function initCatTree() {
     mat4.rotate(secondCatEarNode.matrix, catEarAngle, [0.0, 0.0, 1.0]);
     mat4.translate(secondCatEarNode.matrix, [0.0, 1.0, 0.0]);
 
-    // Cat body
     catBodyNode = { "draw": drawCatBody, "matrix": mat4.identity(mat4.create()) };
     mat4.translate(catBodyNode.matrix, [0.0, -1.75, -2.5]);
 
-    // Kaki anjing
     firstCatLegNode = { "draw": drawCatLegs, "matrix": mat4.identity(mat4.create()) };
     mat4.translate(firstCatLegNode.matrix, [-0.75, -1.25, 1.0]);
 
@@ -110,23 +102,10 @@ function initCatTree() {
     fourthCatLegNode = { "draw": drawCatLegs, "matrix": mat4.identity(mat4.create()) };
     mat4.translate(fourthCatLegNode.matrix, [-1.0, 0.0, 0.0]); //0.2
 
-    // Moncong anjing
     catBeakNode = { "draw": drawCatBeak, "matrix": mat4.identity(mat4.create()) };
     mat4.translate(catBeakNode.matrix, [0.0, 1.5, 3.5]);
 
-    // Ekor anjing
     catTailNode = { "draw": drawCatTail, "matrix": mat4.identity(mat4.create()) };
     mat4.translate(catTailNode.matrix, [0.0, 1.5, -1.75]);
     mat4.rotate(catTailNode.matrix, catTailAngle, [0.0, 0.0, 1.0]);
-
-    // console.log(baseCatNode)
-    // console.log(firstCatEarNode)
-    // console.log(secondCatEarNode)
-    // console.log(catBodyNode)
-    // console.log(firstCatLegNode)
-    // console.log(secondCatLegNode)
-    // console.log(thirdCatLegNode)
-    // console.log(fourthCatLegNode)
-    // console.log(catTailNode)
-    // console.log(catBeakNode)
 }

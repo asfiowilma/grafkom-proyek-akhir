@@ -24,10 +24,12 @@ function drawBox(shadow) {
 }
 
 function initCubeBoxTree() {
+    // CUBE
     baseCubeNode = { "draw": drawCube, "matrix": mat4.identity(mat4.create()) };
     mat4.translate(baseCubeNode.matrix, [9.0,3.5, 0.0]);
     mat4.rotate(baseCubeNode.matrix, baseCubeAngle, [0.0, 1.5, -5.0]);
 
+    // BOX
     baseBoxNode = { "draw": drawBox, "matrix": mat4.identity(mat4.create()) };
     mat4.translate(baseBoxNode.matrix, [-9.0, 3.5, 0.0]);
     mat4.rotate(baseBoxNode.matrix, baseBoxAngle, [1.5, 0.0, 0.0]);

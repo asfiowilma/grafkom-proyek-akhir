@@ -338,85 +338,6 @@ function initBuffers() {
     cubeTextureBuffer.itemSize = 2;
     cubeTextureBuffer.numItems = 24;
 
-    //DEFINING CYLINDER
-    //try making it with 20 segments
-    var segment = 20;
-    var deltaTheta = Math.PI * 360 / (180 * segment);
-    var x, z;
-    var cylinderBotVertices = [0, 0, 0];
-    var cylinderTopVertices = [0, 1, 0];
-    var cylinderSideVertices = [];
-    var cylinderBotNormals = [0.0, -1.0, 0.0];
-    var cylinderTopNormals = [0.0, 1.0, 0.0];
-    var cylinderSideNormals = [];
-    var cylinderBotTopTextureCoordinates = [0.5, 0.5];
-    var cylinderSideTextureCoordinates = [];
-    for (var i = 0; i <= segment; i++) {
-        x = Math.cos(deltaTheta * i);
-        z = Math.sin(deltaTheta * i);
-
-        cylinderBotVertices.push(x, 0, z);
-        cylinderBotNormals.push(0.0, -1.0, 0.0);
-        cylinderBotTopTextureCoordinates.push((x + 1) / 2, (z + 1) / 2);
-
-        cylinderSideVertices.push(x, 0, z);
-        cylinderSideNormals.push(x, 0, z);
-        cylinderSideTextureCoordinates.push(i / segment, 0.0);
-        cylinderSideVertices.push(x, 1, z);
-        cylinderSideNormals.push(x, 0, z);
-        cylinderSideTextureCoordinates.push(i / segment, 1.0);
-
-        cylinderTopVertices.push(x, 1, z);
-        cylinderTopNormals.push(0.0, 1.0, 0.0);
-    }
-    cylinderVertexPositionBuffer = gl.createBuffer();
-    cylinderVertexNormalBuffer = gl.createBuffer();
-    cylinderTextureBuffer = gl.createBuffer();
-    var cylinderVertices = cylinderBotVertices.concat(cylinderSideVertices).concat(cylinderTopVertices);
-    var cylinderNormals = cylinderBotNormals.concat(cylinderSideNormals).concat(cylinderTopNormals);
-    var cylinderTextureCoordinates = cylinderBotTopTextureCoordinates.concat(cylinderSideTextureCoordinates).concat(cylinderBotTopTextureCoordinates);
-    gl.bindBuffer(gl.ARRAY_BUFFER, cylinderVertexPositionBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(cylinderVertices), gl.STATIC_DRAW);
-    cylinderVertexPositionBuffer.itemSize = 3;
-    cylinderVertexPositionBuffer.numItems = cylinderVertices.length / 3;
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, cylinderVertexNormalBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(cylinderNormals), gl.STATIC_DRAW);
-    cylinderVertexNormalBuffer.itemSize = 3;
-    cylinderVertexNormalBuffer.numItems = cylinderNormals.length / 3;
-
-    gl.bindBuffer(gl.ARRAY_BUFFER, cylinderTextureBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(cylinderTextureCoordinates), gl.STATIC_DRAW);
-    cylinderTextureBuffer.itemSize = 2;
-    cylinderTextureBuffer.numItems = cylinderTextureCoordinates.length / 2;
-
-    var cylinderIndices = [];
-    //bot vertices
-    for (var i = 2; i < cylinderBotVertices.length / 3; i++) {
-        cylinderIndices.push(0, i - 1, i);
-    }
-    cylinderIndices.push(0, cylinderBotVertices.length / 3 - 1, 1);
-    var offset = cylinderBotVertices.length / 3;
-    //side vertices
-    for (var i = 2; i < cylinderSideVertices.length / 3; i++) {
-        cylinderIndices.push(offset + i - 2, offset + i - 1, offset + i);
-    }
-    cylinderIndices.push(offset + cylinderSideVertices.length / 3 - 2, offset + cylinderSideVertices.length / 3 - 1, offset);
-    cylinderIndices.push(offset + cylinderSideVertices.length / 3 - 1, offset, offset + 1);
-    offset += cylinderSideVertices.length / 3;
-    for (var i = 2; i < cylinderTopVertices.length / 3; i++) {
-        cylinderIndices.push(offset, offset + i - 1, offset + i);
-    }
-    cylinderIndices.push(offset, offset + cylinderTopVertices.length / 3 - 1, offset + 1);
-    //console.log(cylinderVertices.length);
-    //console.log(cylinderIndices);
-
-    cylinderVertexIndexBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cylinderVertexIndexBuffer);
-    gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(cylinderIndices), gl.STATIC_DRAW);
-    cylinderVertexIndexBuffer.itemSize = 1;
-    cylinderVertexIndexBuffer.numItems = cylinderIndices.length;
-
     //DEFINING SPHERE
     var latitudeBands = 30;
     var longitudeBands = 30;
@@ -532,22 +453,6 @@ function setupToDrawCubeInsides(shadow) {
     }
 }
 
-function setupToDrawCylinder(shadow) {
-    if (shadow) {
-        gl.bindBuffer(gl.ARRAY_BUFFER, cylinderVertexPositionBuffer);
-        gl.vertexAttribPointer(shadowMapShaderProgram.vertexPositionAttribute, cylinderVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
-        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cylinderVertexIndexBuffer);
-    } else {
-        gl.bindBuffer(gl.ARRAY_BUFFER, cylinderVertexPositionBuffer);
-        gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, cylinderVertexPositionBuffer.itemSize, gl.FLOAT, false, 0, 0);
-        gl.bindBuffer(gl.ARRAY_BUFFER, cylinderVertexNormalBuffer);
-        gl.vertexAttribPointer(shaderProgram.vertexNormalAttribute, cylinderVertexNormalBuffer.itemSize, gl.FLOAT, false, 0, 0);
-        gl.bindBuffer(gl.ARRAY_BUFFER, cylinderTextureBuffer);
-        gl.vertexAttribPointer(shaderProgram.vertexTextureAttribute, cylinderTextureBuffer.itemSize, gl.FLOAT, false, 0, 0);
-        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cylinderVertexIndexBuffer);
-    }
-}
-
 function setupToDrawSphere(shadow) {
     if (shadow) {
         gl.bindBuffer(gl.ARRAY_BUFFER, sphereVertexPositionBuffer);
@@ -651,7 +556,6 @@ var baseBoxNode; var baseBoxAngle = 0;
 
 function drawLightSource(shadow) {
     mvPushMatrix();
-    //item specific modifications
     //draw
     setupToDrawSphere(shadow);
     setMatrixUniforms(shadow);
@@ -687,11 +591,8 @@ function initObjectTree() {
     roomNode = { "draw": drawRoom, "matrix": mat4.identity(mat4.create()) };
 
     initDuckTree()
-
     initPuppyTree()
-
     initCatTree()
-
     initCubeBoxTree()
 
     duckBaseNode.child = duckHeadNode;
@@ -1245,23 +1146,17 @@ function initTexture() {
     }
     image3.src = "img/bulu.jpg"
 
-    var image6 = new Image();
-    image6.onload = function () {
-        configureTexture(image6, gl.TEXTURE6);
+    var image4 = new Image();
+    image4.onload = function () {
+        configureTexture(image4, gl.TEXTURE6);
     }
-    image6.src = "img/black.jpg"
+    image4.src = "img/black.jpg"
 
-    var image7 = new Image();
-    image7.onload = function () {
-        configureTexture(image7, gl.TEXTURE7);
+    var image5 = new Image();
+    image5.onload = function () {
+        configureTexture(image5, gl.TEXTURE8);
     }
-    image7.src = "img/red.jpg"
-
-    var image8 = new Image();
-    image8.onload = function () {
-        configureTexture(image8, gl.TEXTURE8);
-    }
-    image8.src = "img/glass.jpg"
+    image5.src = "img/glass.jpg"
 }
 
 function webGLStart() {

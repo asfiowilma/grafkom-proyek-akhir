@@ -77,7 +77,6 @@ function initPuppyTree() {
     mat4.translate(basePuppyNode.matrix, [9.0, -2.5, 0.0]);
     mat4.rotate(basePuppyNode.matrix, basePuppyAngle, [0.0, 1.5, 0.0]);
 
-    // Kuping
     firstPuppyEarNode = { "draw": drawPuppyEars, "matrix": mat4.identity(mat4.create()) };
     mat4.translate(firstPuppyEarNode.matrix, [0.2, -0.25, 0.45]);
     mat4.rotate(firstPuppyEarNode.matrix, -puppyEarAngle, [0.0, 0.0, 1.0]);
@@ -88,11 +87,9 @@ function initPuppyTree() {
     mat4.rotate(secondPuppyEarNode.matrix, puppyEarAngle, [0.0, 0.0, 1.0]);
     mat4.translate(secondPuppyEarNode.matrix, [-0.5, 1.0, 0.0]);
 
-    // Puppy body
     puppyBodyNode = { "draw": drawPuppyBody, "matrix": mat4.identity(mat4.create()) };
     mat4.translate(puppyBodyNode.matrix, [0.0, -2.75, -3.5]);
 
-    // Kaki anjing
     firstPuppyLegNode = { "draw": drawPuppyLegs, "matrix": mat4.identity(mat4.create()) };
     mat4.translate(firstPuppyLegNode.matrix, [-0.75, -2.0, 2.0]);
 
@@ -105,11 +102,9 @@ function initPuppyTree() {
     fourthPuppyLegNode = { "draw": drawPuppyLegs, "matrix": mat4.identity(mat4.create()) };
     mat4.translate(fourthPuppyLegNode.matrix, [-1.75, 0.0, 0.0]); //0.2
 
-    // Moncong anjing
     puppyBeakNode = { "draw": drawPuppyBeak, "matrix": mat4.identity(mat4.create()) };
     mat4.translate(puppyBeakNode.matrix, [0.0, 2.25, 5.0]);
 
-    // Ekor anjing
     puppyTailNode = { "draw": drawPuppyTail, "matrix": mat4.identity(mat4.create()) };
     mat4.translate(puppyTailNode.matrix, [0.0, 2.5, -2.75]);
     mat4.rotate(puppyTailNode.matrix, puppyTailAngle, [0.0, 0.0, 1.0]);
