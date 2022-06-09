@@ -631,7 +631,7 @@ var firstPuppyLegNode; var secondCameraBodyTranslation = 0; var secondCameraBody
 var secondPuppyLegNode; var thirdCameraBodyTranslation = 0; var thirdCameraBodyDirection = 1;
 var thirdPuppyLegNode; var fourthCameraBodyTranslation = 0; var fourthCameraBodyDirection = 1;
 var fourthPuppyLegNode; var lensCameraTranslation = 0; var lensCameraDirection = 1;
-var puppyTailNode; var shutterCameraTranslation = 0.45; var shutterCameraDirection = 1;
+var puppyTailNode; var shutterCameraTranslation = 0.45; var shutterCameraDirection = 1; var puppyTailAngle = 0; var puppyTailDirection = 1;
 var puppyBeakNode;
 
 var baseCatNode; var baseCatAngle = 0;
@@ -643,7 +643,7 @@ var firstCatLegNode; var secondCameraBodyTranslation2 = 0; var secondCameraBodyD
 var secondCatLegNode; var thirdCameraBodyTranslation2 = 0; var thirdCameraBodyDirection2 = 1;
 var thirdCatLegNode; var fourthCameraBodyTranslation2 = 0; var fourthCameraBodyDirection2 = 1;
 var fourthCatLegNode; var lensCameraTranslation2 = 0; var lensCameraDirection2 = 1;
-var catTailNode; var shutterCameraTranslation2 = 0.45; var shutterCameraDirection2 = 1;
+var catTailNode; var shutterCameraTranslation2 = 0.45; var shutterCameraDirection2 = 1; var catTailAngle = 0; var catTailDirection = 1;
 var catBeakNode;
 
 function drawLightSource(shadow) {
@@ -671,167 +671,6 @@ function drawRoom(shadow) {
     mvPopMatrix(shadow);
 }
 
-// PUPPY
-
-// Kepala anjing
-function drawPuppyBase(shadow) {
-    mvPushMatrix();
-    //item specific modifications
-    mat4.scale(mvMatrix, [1.5, 1.5, 1.5]);
-    //draw
-    setupToDrawCube(shadow);
-    setMatrixUniforms(shadow);
-    chooseTexture(0, shadow);
-    setupMaterial(cameraMaterial, shadow);
-    gl.drawElements(drawType, cubeVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
-    mvPopMatrix(shadow);
-}
-
-// Kuping anjing
-function drawPuppyEars(shadow) {
-    mvPushMatrix();
-    //item specific modifications
-    mat4.scale(mvMatrix, [0.35, 1.5, 0.15]);
-    //draw
-    setupToDrawCube(shadow);
-    setMatrixUniforms(shadow);
-    chooseTexture(0, shadow);
-    gl.drawElements(drawType, cubeVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
-    mvPopMatrix(shadow);
-}
-
-// Badan anjing
-function drawPuppyBody(shadow) {
-    mvPushMatrix();
-    //item specific modifications
-    mat4.scale(mvMatrix, [1.8, 1.8, 2.55]);
-    //draw
-    setupToDrawCube(shadow);
-    setMatrixUniforms(shadow);
-    chooseTexture(0, shadow);
-    gl.drawElements(drawType, cubeVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
-    mvPopMatrix(shadow);
-}
-
-// Kaki anjing
-function drawPuppyLegs(shadow) {
-    mvPushMatrix();
-    //item specific modifications
-    mat4.scale(mvMatrix, [0.3, 1.0, 0.3]);
-    //draw
-    setupToDrawCube(shadow);
-    setMatrixUniforms(shadow);
-    chooseTexture(0, shadow);
-    gl.drawElements(drawType, cubeVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
-    mvPopMatrix(shadow);
-}
-
-// Ekor anjing
-function drawPuppyTail(shadow) {
-    mvPushMatrix();
-    //item specific modifications
-    mat4.scale(mvMatrix, [0.3, 1.5, 0.3]);
-    //draw
-    setupToDrawCube(shadow);
-    setMatrixUniforms(shadow);
-    chooseTexture(0, shadow);
-    gl.drawElements(drawType, cubeVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
-    mvPopMatrix(shadow);
-}
-
-// Moncong anjing
-function drawPuppyBeak(shadow) {
-    mvPushMatrix();
-    //item specific modifications
-    mat4.scale(mvMatrix, [1.0, 0.5, 0.5]);
-    //draw
-    setupToDrawCube(shadow);
-    setMatrixUniforms(shadow);
-    chooseTexture(0, shadow);
-    gl.drawElements(drawType, cubeVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
-    mvPopMatrix(shadow);
-}
-
-// CAT
-// Kepala kucing
-function drawCatBase(shadow) {
-    mvPushMatrix();
-    //item specific modifications
-    mat4.scale(mvMatrix, [3.5, 3.5, 1.5]);
-    //draw
-    setupToDrawCube(shadow);
-    setMatrixUniforms(shadow);
-    chooseTexture(0, shadow);
-    setupMaterial(cameraMaterial, shadow);
-    gl.drawElements(drawType, cubeVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
-    mvPopMatrix(shadow);
-}
-
-// Kuping anjing
-function drawCatEars(shadow) {
-    mvPushMatrix();
-    //item specific modifications
-    mat4.scale(mvMatrix, [0.35, 1.5, 0.15]);
-    //draw
-    setupToDrawCube(shadow);
-    setMatrixUniforms(shadow);
-    chooseTexture(0, shadow);
-    gl.drawElements(drawType, cubeVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
-    mvPopMatrix(shadow);
-}
-
-// Badan anjing
-function drawCatBody(shadow) {
-    mvPushMatrix();
-    //item specific modifications
-    mat4.scale(mvMatrix, [1.8, 1.8, 2.55]);
-    //draw
-    setupToDrawCube(shadow);
-    setMatrixUniforms(shadow);
-    chooseTexture(0, shadow);
-    gl.drawElements(drawType, cubeVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
-    mvPopMatrix(shadow);
-}
-
-// Kaki anjing
-function drawCatLegs(shadow) {
-    mvPushMatrix();
-    //item specific modifications
-    mat4.scale(mvMatrix, [0.3, 1.0, 0.3]);
-    //draw
-    setupToDrawCube(shadow);
-    setMatrixUniforms(shadow);
-    chooseTexture(0, shadow);
-    gl.drawElements(drawType, cubeVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
-    mvPopMatrix(shadow);
-}
-
-// Ekor anjing
-function drawCatTail(shadow) {
-    mvPushMatrix();
-    //item specific modifications
-    mat4.scale(mvMatrix, [0.3, 1.5, 0.3]);
-    //draw
-    setupToDrawCube(shadow);
-    setMatrixUniforms(shadow);
-    chooseTexture(0, shadow);
-    gl.drawElements(drawType, cubeVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
-    mvPopMatrix(shadow);
-}
-
-// Moncong anjing
-function drawCatBeak(shadow) {
-    mvPushMatrix();
-    //item specific modifications
-    mat4.scale(mvMatrix, [1.0, 0.5, 0.5]);
-    //draw
-    setupToDrawCube(shadow);
-    setMatrixUniforms(shadow);
-    chooseTexture(0, shadow);
-    gl.drawElements(drawType, cubeVertexIndexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
-    mvPopMatrix(shadow);
-}
-
 function initObjectTree() {
     if (!wireframe) {
         drawType = gl.TRIANGLES;
@@ -846,59 +685,9 @@ function initObjectTree() {
 
     initDuckTree()
 
-    //PUPPY
+    initPuppyTree()
 
-    basePuppyNode = { "draw": drawPuppyBase, "matrix": mat4.identity(mat4.create()), "location": [5.0, 0.0, 0.0], "rotation": basePuppyAngle };
-    mat4.translate(basePuppyNode.matrix, [5.0, 0.0, 0.0]);
-    mat4.rotate(basePuppyNode.matrix, basePuppyAngle, [0.0, 1.5, 0.0]);
-
-    // Kuping
-    firstPuppyEarNode = { "draw": drawPuppyEars, "matrix": mat4.identity(mat4.create()) };
-    mat4.translate(firstPuppyEarNode.matrix, [0.45, -0.25, 0.45]);
-    mat4.rotate(firstPuppyEarNode.matrix, firstCameraLegAngle, [-1.0, 0.0, 1.0]);
-    mat4.translate(firstPuppyEarNode.matrix, [0.5, 1.0, 0.0]);
-
-    secondPuppyEarNode = { "draw": drawPuppyEars, "matrix": mat4.identity(mat4.create()) };
-    mat4.translate(secondPuppyEarNode.matrix, [-0.45, -0.25, 0.45]);
-    mat4.rotate(secondPuppyEarNode.matrix, secondCameraLegAngle, [-1.0, 0.0, -1.0]);
-    mat4.translate(secondPuppyEarNode.matrix, [-0.5, 1.0, 0.0]);
-
-    // --------------- INI GAK KEPAKE ----------------------------
-    thirdCameraLegNode = { "draw": drawPuppyEars, "matrix": mat4.identity(mat4.create()) };
-    mat4.translate(thirdCameraLegNode.matrix, [0.0, 0.0, -0.45]);
-    mat4.rotate(thirdCameraLegNode.matrix, thirdCameraLegAngle, [1.0, 0.0, 0.0]);
-    mat4.translate(thirdCameraLegNode.matrix, [0.0, 0.0, 0.0]);
-    // ------------------------------------------------------------
-
-    // Puppy body
-    puppyBodyNode = { "draw": drawPuppyBody, "matrix": mat4.identity(mat4.create()) };
-    mat4.translate(puppyBodyNode.matrix, [0.0, -2.75, -3.5]);
-
-    // Kaki anjing
-    firstPuppyLegNode = { "draw": drawPuppyLegs, "matrix": mat4.identity(mat4.create()) };
-    mat4.translate(firstPuppyLegNode.matrix, [-0.75, -2.0, 2.0]);
-
-    secondPuppyLegNode = { "draw": drawPuppyLegs, "matrix": mat4.identity(mat4.create()) };
-    mat4.translate(secondPuppyLegNode.matrix, [1.5, 0.0, 0.0]);
-
-    thirdPuppyLegNode = { "draw": drawPuppyLegs, "matrix": mat4.identity(mat4.create()) };
-    mat4.translate(thirdPuppyLegNode.matrix, [0.0, 0.0, -3.75]); //0.2
-
-    fourthPuppyLegNode = { "draw": drawPuppyLegs, "matrix": mat4.identity(mat4.create()) };
-    mat4.translate(fourthPuppyLegNode.matrix, [-1.75, 0.0, 0.0]); //0.2
-
-    // Ekor anjing
-    puppyTailNode = { "draw": drawPuppyTail, "matrix": mat4.identity(mat4.create()) };
-    mat4.translate(puppyTailNode.matrix, [0.0, 2.5, -2.75]);
-
-    // Moncong anjing
-    puppyBeakNode = { "draw": drawPuppyBeak, "matrix": mat4.identity(mat4.create()) };
-    mat4.translate(puppyBeakNode.matrix, [0.0, -0.25, 7.75]);
-
-    // KUCING
-    baseCatNode = { "draw": drawCatBase, "matrix": mat4.identity(mat4.create()), "location": [5.0, 0.0, 0.0], "rotation": baseCatAngle };
-    mat4.translate(baseCatNode.matrix, [5.0, 0.0, 0.0]);
-    mat4.rotate(baseCatNode.matrix, baseCatAngle, [3.0, 1.5, 0.0]);
+    initCatTree()
 
     duckBaseNode.child = duckHeadNode;
     duckHeadNode.sibling = duckSecondWingNode;
@@ -910,19 +699,27 @@ function initObjectTree() {
     duckFirstLegNode.child = duckFirstFootNode;
     duckSecondLegNode.child = duckSecondFootNode;
 
+    duckBaseNode.sibling = basePuppyNode;
     basePuppyNode.child = firstPuppyEarNode;
     firstPuppyEarNode.sibling = secondPuppyEarNode;
-    secondPuppyEarNode.sibling = thirdCameraLegNode;
-    thirdCameraLegNode.sibling = puppyBodyNode;
+    secondPuppyEarNode.sibling = puppyBodyNode;
     puppyBodyNode.child = firstPuppyLegNode;
     firstPuppyLegNode.child = secondPuppyLegNode;
     secondPuppyLegNode.child = thirdPuppyLegNode;
     thirdPuppyLegNode.child = fourthPuppyLegNode;
     firstPuppyLegNode.sibling = puppyTailNode;
-    puppyTailNode.child = puppyBeakNode;
+    puppyTailNode.sibling = puppyBeakNode;
 
     basePuppyNode.sibling = baseCatNode;
     baseCatNode.child = firstCatEarNode;
+    firstCatEarNode.sibling = secondCatEarNode;
+    secondCatEarNode.sibling = catBodyNode;
+    catBodyNode.child = firstCatLegNode;
+    firstCatLegNode.child = secondCatLegNode;
+    secondCatLegNode.child = thirdCatLegNode;
+    thirdCatLegNode.child = fourthCatLegNode;
+    firstCatLegNode.sibling = catTailNode;
+    catTailNode.sibling = catBeakNode;
 }
 
 function traverse(node, shadow) {
@@ -1344,7 +1141,7 @@ function animate() {
         if (thirdFingerTopAngle > Math.PI / 8 && thirdFingerTopDirection == 1) thirdFingerTopDirection *= -1;
         document.getElementById("thirdFingerTopRotationSlider").value = thirdFingerTopAngle * 180 / (Math.PI);
 
-        //CAMERA
+        //PUPPY
         basePuppyAngle = (basePuppyAngle + update) % (2 * Math.PI);
         document.getElementById("baseCameraRotationSlider").value = basePuppyAngle * 180 / (Math.PI);
 
@@ -1379,14 +1176,70 @@ function animate() {
         document.getElementById("fourthCameraBodyTranslationSlider").value = fourthCameraBodyTranslation * 100;
 
         lensCameraTranslation += 0.5 * update * lensCameraDirection;
-        if (lensCameraTranslation < 0.1 && lensCameraDirection == -1) lensCameraDirection *= -1;
-        if (lensCameraTranslation > 0.25 && lensCameraDirection == 1) lensCameraDirection *= -1;
+        if (lensCameraTranslation < 3 && lensCameraDirection == -1) lensCameraDirection *= -1;
+        if (lensCameraTranslation > 3.25 && lensCameraDirection == 1) lensCameraDirection *= -1;
         document.getElementById("lensCameraTranslationSlider").value = lensCameraTranslation * 100;
 
         shutterCameraTranslation += 0.5 * update * shutterCameraDirection;
         if (shutterCameraTranslation < 0.45 && shutterCameraDirection == -1) shutterCameraDirection *= -1;
         if (shutterCameraTranslation > 0.55 && shutterCameraDirection == 1) shutterCameraDirection *= -1;
         document.getElementById("shutterCameraTranslationSlider").value = shutterCameraTranslation * 100;
+
+        puppyTailAngle += update * puppyTailDirection;
+        if (puppyTailAngle < -0.75 && puppyTailDirection == -1) puppyTailDirection *= -1;
+        if (puppyTailAngle > 0.75 && puppyTailDirection == 1) puppyTailDirection *= -1;
+        document.getElementById("secondArmRotationSlider").value = puppyTailAngle * 180 / (Math.PI);
+
+        // CAT
+
+        baseCatAngle = (baseCatAngle + update) % (2 * Math.PI);
+        document.getElementById("baseCameraRotationSlider").value = baseCatAngle * 180 / (Math.PI);
+
+        firstCameraLegAngle2 += update * firstCameraLegDirection2;
+        if (firstCameraLegAngle2 < 0 && firstCameraLegDirection2 == -1) firstCameraLegDirection2 *= -1;
+        if (firstCameraLegAngle2 > Math.PI / 4 && firstCameraLegDirection2 == 1) firstCameraLegDirection2 *= -1;
+        document.getElementById("firstCameraLegRotationSlider").value = firstCameraLegAngle2 * 180 / (Math.PI);
+
+        secondCameraLegAngle2 += update * secondCameraLegDirection2;
+        if (secondCameraLegAngle2 < 0 && secondCameraLegDirection2 == -1) secondCameraLegDirection2 *= -1;
+        if (secondCameraLegAngle2 > Math.PI / 4 && secondCameraLegDirection2 == 1) secondCameraLegDirection2 *= -1;
+        document.getElementById("secondCameraLegRotationSlider").value = secondCameraLegAngle2 * 180 / (Math.PI);
+
+        thirdCameraLegAngle2 += update * thirdCameraLegDirection2;
+        if (thirdCameraLegAngle2 < 0 && thirdCameraLegDirection2 == -1) thirdCameraLegDirection2 *= -1;
+        if (thirdCameraLegAngle2 > Math.PI / 4 && thirdCameraLegDirection2 == 1) thirdCameraLegDirection2 *= -1;
+        document.getElementById("thirdCameraLegRotationSlider").value = thirdCameraLegAngle2 * 180 / (Math.PI);
+
+        secondCameraBodyTranslation2 += 0.5 * update * secondCameraBodyDirection2;
+        if (secondCameraBodyTranslation2 < 0.05 && secondCameraBodyDirection2 == -1) secondCameraBodyDirection2 *= -1;
+        if (secondCameraBodyTranslation2 > 0.3 && secondCameraBodyDirection2 == 1) secondCameraBodyDirection2 *= -1;
+        document.getElementById("secondCameraBodyTranslationSlider").value = secondCameraBodyTranslation2 * 100;
+
+        thirdCameraBodyTranslation2 += 0.5 * update * thirdCameraBodyDirection2;
+        if (thirdCameraBodyTranslation2 < 0.05 && thirdCameraBodyDirection2 == -1) thirdCameraBodyDirection2 *= -1;
+        if (thirdCameraBodyTranslation2 > 0.2 && thirdCameraBodyDirection2 == 1) thirdCameraBodyDirection2 *= -1;
+        document.getElementById("thirdCameraBodyTranslationSlider").value = thirdCameraBodyTranslation2 * 100;
+
+        fourthCameraBodyTranslation2 += 0.5 * update * fourthCameraBodyDirection2;
+        if (fourthCameraBodyTranslation2 < 0.05 && fourthCameraBodyDirection2 == -1) fourthCameraBodyDirection2 *= -1;
+        if (fourthCameraBodyTranslation2 > 0.2 && fourthCameraBodyDirection2 == 1) fourthCameraBodyDirection2 *= -1;
+        document.getElementById("fourthCameraBodyTranslationSlider").value = fourthCameraBodyTranslation2 * 100;
+
+        lensCameraTranslation2 += 0.5 * update * lensCameraDirection2;
+        if (lensCameraTranslation2 < 3 && lensCameraDirection2 == -1) lensCameraDirection2 *= -1;
+        if (lensCameraTranslation2 > 3.25 && lensCameraDirection2 == 1) lensCameraDirection2 *= -1;
+        document.getElementById("lensCameraTranslationSlider").value = lensCameraTranslation2 * 100;
+
+        shutterCameraTranslation2 += 0.5 * update * shutterCameraDirection2;
+        if (shutterCameraTranslation2 < 0.45 && shutterCameraDirection2 == -1) shutterCameraDirection2 *= -1;
+        if (shutterCameraTranslation2 > 0.55 && shutterCameraDirection2 == 1) shutterCameraDirection2 *= -1;
+        document.getElementById("shutterCameraTranslationSlider").value = shutterCameraTranslation2 * 100;
+
+        catTailAngle += update * catTailDirection;
+        if (catTailAngle < -0.75 && catTailDirection == -1) catTailDirection *= -1;
+        if (catTailAngle > 0.75 && catTailDirection == 1) catTailDirection *= -1;
+        document.getElementById("secondArmRotationSlider").value = catTailAngle * 180 / (Math.PI);
+
     }
     initObjectTree();
 }
@@ -1554,7 +1407,7 @@ function initTexture() {
     image2.onload = function () {
         configureTexture(image2, gl.TEXTURE2);
     }
-    image2.src = "img/blue.jpg"
+    image2.src = "img/cat.jpg"
 
     var image3 = new Image();
     image3.onload = function () {
